@@ -23,7 +23,7 @@
 ## How?
 
 * Use the training data!
-* Find a function $g$ that minimizes the error on the test set *without overfitting*
+* Find a function $g$ that minimizes the error on the training set *without overfitting*
 * Think about trying to model a trend on 20 data points with a 20 degree polynomial
 
 ## Support Vector Machines (SVM)
@@ -37,7 +37,7 @@
 ## More SVM
 * Quadratic programming problem
 * Can be solved via the method of Lagrange Multipliers
-* The optimal hyperplane in SVM has the form $$f(x) = \sum_i a_i \langle x_i, x \rangle + b = 0$$ where $\{x_i\}$ are your training observations and $a_i \neq 0$ if and only if $x_i$ is what's called a *support vector* (the points on the edge of the margin)
+* The optimal hyperplane in SVM has the form $$f(x) = \sum_i a_i \langle x_i, x \rangle + b = 0$$ where $\{x_i\}$ are your training observations and $a_i \neq 0$ if and only if $x_i$ is a *support vector* (the points on the edge of the margin)
 * Let $g(x) = sgn(f(x))$
 
 ## Ok, that sounds great. What's the problem?
@@ -96,7 +96,7 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 ## Example: Polynomial kernel
 
 * $K(x,y) = (\langle x, y \rangle + c)^d$
-* $c$ and $d$ are choosen *a priori* by the user, not trained
+* $c$ and $d$ are chosen *a priori* by the user, not trained
 * Comes from the polynomial transformation $\phi_d$
 
 ![Polynomial Kernel](../images/svm_kernel_poly.png){ width=200px }
@@ -120,3 +120,60 @@ What are $\phi$ and the dimension of $V$ in this case?
 ## Questions?
 
 ## Tips for transitioning to industry
+
+* I'll focus on data science, but a lot of this applies elsewhere
+
+## Learn a programming language
+
+* Python
+    * Popular, big active community
+    * Scikit-Learn is one of the best machine learning libraries available
+    * General purpose programming language - not just for math and statistics
+* R
+    * Popular, but fewer contributors
+    * Designed with data and statistics in mind
+    * Not so great as a general purpose language, but great for *ad hoc* data analysis
+
+## More programming languages
+
+* Scala
+    * Higher barrier to entry than Python/R
+    * Compiles to Java bytecode, so it can use any Java package
+    * Functional
+    * Will be able to use it at company that uses Java
+* Java
+    * Immensely popular in the software development industry
+    * Not so great with data analysis and statistics
+    * Standard in CS cirriculum.
+
+## Get connected
+
+* Find colleagues or friends in industry to refer you
+    * Much much higher success rate than just submitting your resume online
+* Use LinkedIn and Twitter
+* Write a technical blog
+* Start writing some code and use github
+
+## Speaking of github
+
+* Learn to use version control (git)
+
+## Focus on getting good at just a few things
+
+* Stick to one programming language to start (Python)
+* Pick a goal job and focus on the skills needed to get it
+    * Data scientist: stats, machine learning, data cleaning, basic programming and CS skills
+    * Software developer: Java, Scala, or Python. CS fundamentals (data structures, algorithms)
+
+## Machine Learning
+
+* Andrew Ng Machine Learning course on [Coursera](http://www.coursera.org)
+* *Learning from Data*, Abu-Mostafa, Magdon-Ismail, Lin
+* *Introduction to Statistical Learning*, James, Witten, Hastie, Tibshirani
+* [Kaggle](https://www.kaggle.com) competitions
+
+## Try before you buy
+
+* If you think we might want to go into industry, get a summer internship
+* Looks great on your resume
+* Builds your professional network
