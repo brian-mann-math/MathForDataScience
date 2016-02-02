@@ -2,6 +2,13 @@
 % [Brian J. Mann](brian.mann@galvanize.com)
 % Feb 2, 2016
 
+## Who am I?
+
+* PhD from University of Utah in 2014 working under Mladen
+* Worked for [Amazon Web Services](http://aws.amazon.com) doing supply chain optimization and forecasting
+* Now at [Galvanize](http://www.galvanize.com) teaching data science and consulting
+* [Slides](https://github.com/brianmanngalvanize/UtahGSACTalk/blob/master/slides/math_for_data_science.pdf)
+
 ## What is Data Science?
 
 * Learning patterns or behavior from observed data, generally to predict behavior of new observations
@@ -35,20 +42,20 @@
 
 
 ## More SVM
-* Quadratic programming problem
+* Quadratic optimization problem
 * Can be solved via the method of Lagrange Multipliers
 * The optimal hyperplane in SVM has the form $$f(x) = \sum_i a_i \langle x_i, x \rangle + b = 0$$ where $\{x_i\}$ are your training observations and $a_i \neq 0$ if and only if $x_i$ is a *support vector* (the points on the edge of the margin)
 * Let $g(x) = sgn(f(x))$
 
 ## Ok, that sounds great. What's the problem?
 
-![Well, shit.](../images/2d.png){ width=250px }
+![ Well, shit.](../images/2d.png){ width=250px }
 
 ## The solution
 
 * Map our data to a higher dimensional space where it's (almost) linearly separable
 
-![Yay!](../images/3d.png){ width=250px }
+![ Yay!](../images/3d.png){ width=250px }
 
 ## Talk's over, right?
 
