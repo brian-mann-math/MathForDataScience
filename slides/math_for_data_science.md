@@ -264,7 +264,7 @@ Books
 
 Papers
 
-* V. Vapnik and A. Y. Chervonenkis, *On the Uniform Convergence of Relative Frequencies of Events to Their Probabilities* 
+* V. Vapnik and A. Y. Chervonenkis, *On the Uniform Convergence of Relative Frequencies of Events to Their Probabilities*
 * Eduardo Sontag, *VC Dimension of Neural Networks*, http://www.mit.edu/~esontag/FTP_DIR/vc-expo.pdf
 
 Images
