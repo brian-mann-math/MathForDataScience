@@ -3,7 +3,7 @@ $if(theme)$
 \usetheme{$theme$}
 $endif$
 
-\usetheme{ClassyCharcoal}
+%\usetheme{ClassyCharcoal}
 
 $if(colortheme)$
 \usecolortheme{$colortheme$}

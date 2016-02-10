@@ -80,7 +80,7 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 
 ## Example: RBF (Gaussian) kernel
 
-* $K(x,y) = \exp(-\gamma||x - y||^2)$
+* $K(x,y) = e^{-\gamma||x - y||^2}$
 * $\gamma$ is chosen *a priori* by the user
 
 ## More RBF kernel
