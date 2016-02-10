@@ -11,6 +11,8 @@
 ## Objectives
 
 * Learn some fun mathematics
+    * Kernel trick for support vector machines
+    * VC Generalization Bound (why machine learning works!)
 * See how understanding how machine learning is working "under the hood" can improve your intuition about model selection and hyper-parameter choice
 
 ## Support Vector Machines (SVM)
@@ -29,10 +31,6 @@
 * Map our data to a higher dimensional space where it's (almost) linearly separable
 
 ![ Yay!](../images/3d.png){ width=250px }
-
-## Talk's over, right?
-
-Not quite, there's still some problems
 
 ## Issue 1: Memory
 
@@ -71,7 +69,7 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 
 * $K(x,y) = (\langle x, y \rangle + c)^d$
 * $c$ and $d$ are chosen *a priori* by the user, not trained
-* Choose best $c$ and $d$ by cross-validation
+* Find $c$ and $d$ by cross-validation
 * Comes from the polynomial transformation $\phi_d$ (ignoring some constants)
 
 ![Polynomial Kernel](../images/svm_kernel_poly.png){ width=200px }
@@ -84,6 +82,9 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 * With the RBF kernel, SVM looks for clusters of similarly labeled points
 * Can learn much more complicated decision boundaries compared to polynomial or linear kernels (watch for overfitting, adjust $\gamma$)
 
+## More RBF kernel
+
+![RBF Kernel](../images/svm_kernel_rbf.png){ width=200px }
 
 ## More RBF kernel
 What are $\phi$ and the dimension of $V$ in this case?
@@ -92,13 +93,13 @@ What are $\phi$ and the dimension of $V$ in this case?
 * With a little algebra one gets $$\displaystyle \phi(x) = \left(\frac{e^{-\frac{||x||^2}{2j}}}{\sqrt{j!}^{1/j}} {j \choose n_1,\ldots,n_k}^{1/2}\right)_{j=0,\ldots, \infty, \sum_{i=1}^k n_i= j} $$
 * $V$ is infinite dimensional ($V = l^2$ the space of square-summable sequences)
 
-## More RBF kernel
 
-![RBF Kernel](../images/svm_kernel_rbf.png){ width=200px }
 
 ## Overview
 
-* The kernel trick...
+* Understand how the kernel trick works
+* Pick the right kernel for what you think the decision boundary might look like
+* Questions?
 
 ## VC Dimension and the VC Bound Theorem
 
@@ -218,7 +219,7 @@ Suppose we want $E_{gen}(g)$ to be within 10% of $E_{train}(g)$ with 90% confide
 
 * $N \sim 30,000$
 
-* It turns out that $N \sim 10,000 \times d_{VC}$
+* In general, $N \sim 10,000 \times d_{VC}$
 
 * Empirically, $N \sim 10 \times d_{VC}$ (VC bound badly overestimates)
 
@@ -237,6 +238,9 @@ $$m_{\mathcal{H}}(2N) \times \sup_{S} \sup_{h} \mathbb{P}\left(|E_{train}(h) - E
 3. Use the Hoeffding bound to show $$\mathbb{P}\left(|E_{train}(h) - E_{test}(h)| > \epsilon/2 | S \right) \leq 2e^{-\frac{1}{8}\epsilon^2N}$$
 
 ## Conclusion
+
+* Obtain statistical guarantees about how well your model generalizes
+* Extremely slack bound, but better than nothing
 
 ## References
 
