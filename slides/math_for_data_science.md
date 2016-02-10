@@ -1,6 +1,6 @@
 % Mathematics For Data Science
 % [Brian J. Mann](brian.mann@galvanize.com)
-% Feb 2, 2016
+% Feb 10-11, 2016
 
 ## Who am I?
 
