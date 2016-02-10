@@ -6,7 +6,7 @@
 
 * PhD from University of Utah in 2014 (Geometric Group Theory)
 * Worked for [Amazon Web Services](http://aws.amazon.com) doing supply chain optimization and forecasting
-* brian.mann@galvanize.com
+* Email: brian.mann@galvanize.com
 * Github: brianmanngalvanize
 
 ## Objectives
@@ -242,7 +242,7 @@ $$2\mathbb{P}\left(\sup_h |E_{train}(h) - E_{test}(h)| > \epsilon/2\right)$$
 
 ## Sketch Part 2
 
-2. Replace the infinite hypothesis set with the number of dichotomies that the hypothesis set can have on a finite set $S$ of points giving
+2. Replace the infinite hypothesis set with the number of dichotomies that the hypothesis set can have on a finite set $S$ giving
 $$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{test}(h)| > \epsilon/2\right) \leq$$
 $$m_{\mathcal{H}}(2N) \times \sup_{S} \sup_{h} \mathbb{P}\left(|E_{train}(h) - E_{test}(h)| > \epsilon/2 | S \right)$$
 
@@ -257,6 +257,16 @@ $$m_{\mathcal{H}}(2N) \times \sup_{S} \sup_{h} \mathbb{P}\left(|E_{train}(h) - E
 
 ## References
 
-* Yaser S. Abu-Mostafa, Malik Magdon-Ismail, Hsuan-Tien Lin *Learning From Data: A Short Course*
+Books
+
+* Y. S. Abu-Mostafa, M. Magdon-Ismail, H.-T. Lin *Learning From Data: A Short Course*
+* V. Vapnik, *The Nature of Statistical Learning Theory*
+
+Papers
+
+* V. Vapnik and A. Y. Chervonenkis, *On the Uniform Convergence of Relative Frequencies of Events to Their Probabilities* 
 * Eduardo Sontag, *VC Dimension of Neural Networks*, http://www.mit.edu/~esontag/FTP_DIR/vc-expo.pdf
-* Images: *http://www.svms.org/vc-dimension/*
+
+Images
+
+* http://www.svms.org/vc-dimension/
