@@ -58,7 +58,7 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 1. $K(x,y) = K(y,x)$ (symmetric)
 2. $K$ is positive-semidefinite i.e. $$\sum_i \sum_j K(x_i, x_j)c_ic_j > 0$$ for all finite sequences $x_1,\ldots, x_n$ and all $c_i, c_j \in \mathbb{R}$
 
-These definitions are a little opaque, but the idea is that a kernel function generalizes the idea of an inner product (also known as a linear kernel).
+This definition is a little opaque, but the idea is that a kernel function generalizes the idea of an inner product (also known as a linear kernel).
 
 ## Mercer's Theorem
 
