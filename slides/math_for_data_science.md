@@ -7,7 +7,7 @@
 * PhD from University of Utah in 2014 (Geometric Group Theory)
 * Worked for [Amazon Web Services](http://aws.amazon.com) doing supply chain optimization and forecasting
 * Now at [Galvanize](http://www.galvanize.com) teaching data science and consulting
-* [Slides](https://github.com/brianmanngalvanize/UtahGSACTalk/blob/master/slides/math_for_data_science.pdf)
+* [Slides](https://github.com/brianmanngalvanize/MathForDataScience/blob/master/slides/math_for_data_science.pdf)
 * brian.mann@galvanize.com
 
 ## Support Vector Machines (SVM)
