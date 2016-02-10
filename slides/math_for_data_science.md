@@ -234,7 +234,9 @@ Suppose we want $E_{gen}(g)$ to be within 10% of $E_{train}(g)$ with 90% confide
 
 ## Sketch of Proof (optional)
 
-*Theorem (VC Generalization Bound)* $$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{gen}(h)| > \epsilon\right) \leq 4m_{\mathcal{H}}(2N)e^{-\frac{1}{8}\epsilon^2N}$$
+**Theorem (VC Generalization Bound)** $$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{gen}(h)| > \epsilon\right) \leq 4m_{\mathcal{H}}(2N)e^{-\frac{1}{8}\epsilon^2N}$$
+
+**Proof**
 
 1. Instead of working with the space of all possible observations, pick a second test set the same size as the training set
 $$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{gen}(h)| > \epsilon/2\right) \leq $$
