@@ -4,34 +4,11 @@
 
 ## Who am I?
 
-* PhD from University of Utah in 2014 working under Mladen
+* PhD from University of Utah in 2014 (Geometric Group Theory)
 * Worked for [Amazon Web Services](http://aws.amazon.com) doing supply chain optimization and forecasting
 * Now at [Galvanize](http://www.galvanize.com) teaching data science and consulting
 * [Slides](https://github.com/brianmanngalvanize/UtahGSACTalk/blob/master/slides/math_for_data_science.pdf)
-
-## What is Data Science?
-
-* Learning patterns or behavior from observed data, generally to predict behavior of new observations
-* Uses statistics, computer science, machine learning
-
-### Examples
-
-* Predict when to build new data centers accounting for a noisy demand signal (this is what I did at AWS)
-* Given a satellite photo of a whale at the surface of the ocean, determine which particular whale it is (NOAA Right Whale Kaggle competition)
-* Determine whether the effect of changing the UI on your company's phone app was significant
-* Given a photo of an eye, determine if the individual has diabetic retinopathy
-
-## Intro to Classification Algorithms
-
-* Observed data represented by points in $\mathbb{R}^N$
-* Training observations labelled "positive" or "negative" (we'll use $\{ +1, -1\}$)
-* Goal: create a model function $g : \mathbb{R}^N \rightarrow \{+1, -1\}$ that predicts the class of new observations.
-
-## How?
-
-* Use the training data!
-* Find a function $g$ that minimizes the error on the training set *without overfitting*
-* Think about trying to model a trend on 20 data points with a 20 degree polynomial
+* brian.mann@galvanize.com
 
 ## Support Vector Machines (SVM)
 
@@ -39,13 +16,6 @@
 * Here *optimal* means that the minimum distance from the hyperplane to any of the training points (the *margin*) is maximal.
 
 ![Maximal Margin](../images/maxmargin.jpg){ width=250px }
-
-
-## More SVM
-* Quadratic optimization problem
-* Can be solved via the method of Lagrange Multipliers
-* The optimal hyperplane in SVM has the form $$f(x) = \sum_i a_i \langle x_i, x \rangle + b = 0$$ where $\{x_i\}$ are your training observations and $a_i \neq 0$ if and only if $x_i$ is a *support vector* (the points on the edge of the margin)
-* Let $g(x) = sgn(f(x))$
 
 ## Ok, that sounds great. What's the problem?
 
@@ -90,7 +60,7 @@
 A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}$$ which satisfies
 
 1. $K(x,y) = K(y,x)$ (symmetric)
-2. $K$ is positive-semidefinite i.e. $$\sum_i \sum_j K(x_i, x_j)c_ic_j \geq 0$$ for all finite sequences $x_1,\ldots, x_n$ and all $c_i, c_j \in \mathbb{R}$
+2. $K$ is positive-semidefinite i.e. $$\sum_i \sum_j K(x_i, x_j)c_ic_j > 0$$ for all finite sequences $x_1,\ldots, x_n$ and all $c_i, c_j \in \mathbb{R}$
 
 ## Mercer's Theorem
 
@@ -104,7 +74,7 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 
 * $K(x,y) = (\langle x, y \rangle + c)^d$
 * $c$ and $d$ are chosen *a priori* by the user, not trained
-* Comes from the polynomial transformation $\phi_d$
+* Comes from the polynomial transformation $\phi_d$ (ignoring some constants)
 
 ![Polynomial Kernel](../images/svm_kernel_poly.png){ width=200px }
 
@@ -126,61 +96,133 @@ What are $\phi$ and the dimension of $V$ in this case?
 
 ## Questions?
 
-## Tips for transitioning to industry
+## VC Dimension and the VC Bound Theorem
 
-* I'll focus on data science, but a lot of this applies elsewhere
+### Question?
 
-## Learn a programming language
+* Why should you expect that your training error tells you anything about the error of your model on new data? In other words, why/how do you know that your model will generalize at all?
 
-* Python
-    * Popular, big active community
-    * Scikit-Learn is one of the best machine learning libraries available
-    * General purpose programming language - not just for math and statistics
-* R
-    * Popular, but fewer contributors
-    * Designed with data and statistics in mind
-    * Not so great as a general purpose language, but great for *ad hoc* data analysis
+## We need to start somewhere
 
-## More programming languages
+### Theorem (Hoeffding Inequality)
 
-* Scala
-    * Higher barrier to entry than Python/R
-    * Compiles to Java bytecode, so it can use any Java package
-    * Functional
-    * Will be able to use it at company that uses Java
-* Java
-    * Immensely popular in the software development industry
-    * Not so great with data analysis and statistics
-    * Standard in CS cirriculum.
+Suppose $X_1, \ldots, X_n$ are iid random variables and let $$\bar{X} = \frac{X_1 + X_2 + \cdots + X_N}{N}$$ then $$\mathbb{P}(|\bar{X} - \mathbb{E}(\bar{X})| > \epsilon) \leq 2e^{-2\epsilon^2N}$$
 
-## Get connected
+## In English
 
-* Find colleagues or friends in industry to refer you
-    * Much much higher success rate than just submitting your resume online
-* Use LinkedIn and Twitter
-* Write a technical blog
-* Start writing some code and use github
+* For any threshold value $\epsilon$, if you sample a random variable enough times, the probability that the sample mean differs from the true mean by more than $\epsilon$ is nearly 0.
 
-## Speaking of github
+* i.e. If you flip a fair coin enough times, you expect the ratio of heads to tails get arbitrarily close to 1:1 with high probability.
 
-* Learn to use version control (git)
+## Assumptions
 
-## Focus on getting good at just a few things
+* For the purposes of this talk, we'll focus on binary classification problems
+* All of this can be extended to other supervised learning problems
+* Positive and negative classes will be represented as $+1$ and $-1$
 
-* Stick to one programming language to start (Python)
-* Pick a goal job and focus on the skills needed to get it
-    * Data scientist: stats, machine learning, data cleaning, basic programming and CS skills
-    * Software developer: Java, Scala, or Python. CS fundamentals (data structures, algorithms)
+## What does this have to do with machine learning?
 
-## Machine Learning
+* Suppose $h$ is some hypothesis (a function that classifies observations as either $+1$ or $-1$)
+* $E_{train}(h) =$ error rate on your training set
+* $E_{gen}(h) = h$'s true error rate
 
-* Andrew Ng Machine Learning course on [Coursera](http://www.coursera.org)
-* *Learning from Data*, Abu-Mostafa, Magdon-Ismail, Lin
-* *Introduction to Statistical Learning*, James, Witten, Hastie, Tibshirani
-* [Kaggle](https://www.kaggle.com) competitions
+$E_{gen}(h)$ and $E_{train}(h)$ are random variables that satisfy the hypotheses of the Hoeffding Inequality so $$\mathbb{P}(|E_{train}(h) - E_{gen}(h)| > \epsilon) \leq 2e^{-2\epsilon^2N}$$
 
-## Try before you buy
+## Naive error generalization bound
 
-* If you think we might want to go into industry, get a summer internship
-* Looks great on your resume
-* Builds your professional network
+Suppose:
+
+1. We have a finite hypothesis set $\{h_1, \ldots, h_M\}$
+2. Given some training data, we apply some learning procedure to find the optimal hypothesis $g$
+
+It is NOT TRUE that $$\mathbb{P}(|E_{train}(g) - E_{gen}(g)| > \epsilon) \leq 2e^{-2\epsilon^2N}$$ since $g$ is chosen after the data is generated
+
+## Naive error generalization bound
+
+However, the event $$|E_{train}(g) - E_{gen}(g)| > \epsilon$$ is in the union of the events $$|E_{train}(h_i) - E_{gen}(h_i)| > \epsilon$$ so $$\mathbb{P}(|E_{train}(g) - E_{gen}(g)| > \epsilon) \leq 2Me^{-2\epsilon^2N}$$
+
+## Problem with this naive bound
+
+* The bound $$\mathbb{P}(|E_{train}(g) - E_{gen}(g)| > \epsilon) \leq 2Me^{-2\epsilon^2N}$$ only works for finite hypothesis sets
+* Not really useful for any real-world examples
+
+## Can we do better?
+
+* How do we make this idea work?
+    * Even with finitely many hypothesis functions the bound is still quite bad since the events $$|E_{train}(h_i) - E_{gen}(h_i)| > \epsilon$$ probably have large overlaps
+    * In fact, they overlap enough to allow us to work with infinite hypothesis sets (i.e. hyperplanes in $\mathbb{R}^N$)
+
+## Shattering
+
+* Let $\mathcal{H}$ be our hypotheses set
+    * $\mathcal{H}$ might be all separating hyperplanes in $\mathbb{R}^N$
+    * or the set of all of the possible decision functions you can get with a neural network of some fixed topology
+
+* For any finite data set $\{x_1, \ldots, x_N\}$, each $h \in \mathcal{H}$ gives a dichotomy $h(x_1), \ldots, h(x_N) \in \{+1, -1\}^N$
+* Define $$m_{\mathcal{H}(N)} = \max_{x_1, \ldots, x_N} | \{h(x_1), \ldots, h(x_N) | h \in \mathcal{H}\}|$$
+
+## Shattering
+
+* $m_{\mathcal{H}}(N) \leq 2^N$
+* We say $\mathcal{H}$ *shatters* $x_1, \ldots, x_N$ if $| \{h(x_1), \ldots, h(x_N) | h \in \mathcal{H}\}| = 2^N$
+* In this case $m_{\mathcal{H}}(N) = 2^N$
+
+## Examples
+* Linear decision boundaries shatters 3 points in $\mathbb{R}^2$
+![Shattering Example](../images/VCDimension.png){width=200px}
+* Convex polgons in $\mathbb{R}^2$ shatter arbitrarily many points
+    * Choose $N$ points on the unit circle
+    * Take the convex hull of the $+1$'s
+
+## Non-example
+* Linear decision boundaries do not shatter any 4 points in $\mathbb{R}^2$
+![Non-example](../images/VCNonExample.png){width=200px}
+
+## Vapnik-Chervonenkis (VC) Dimension
+
+* The VC Dimension $d_{VC}$ of $\mathcal{H}$ is defined to be the largest $N$ for which $m_{\mathcal{H}}(N) = 2^N$
+* Said another way $$d_{VC} \geq N$$ $$\Leftrightarrow$$ $$\text{ there exists a data set of size $N$ such that } \mathcal{H} \text{ shatters it}$$
+* The VC Dimension gives a polynomial upper bound on $m_{\mathcal{H}}(N)$ $$m_{\mathcal{H}(N)} \leq N^{d_{VC}} + 1$$
+
+## Examples
+
+* For linear decision boundaries in $\mathbb{R}^2$, $d_{VC} = 3$
+* For linear decision boundaries in $\mathbb{R}^N$, $d_{VC} = N+1$
+    * Choose $N+1$ points which do not live on the same hyperplane
+    * Can get any dichotomy on these points, so $d_{VC} \geq N+1$
+    * With $N+2$ points, can find hyperplane through $N$ points with the remaining two points on either side
+    * Labelling points on this hyperplane $-1$, others $+1$ $\Rightarrow$ impossible dichotomy
+    * $d_{VC} = N+1$
+* Convex polygons in $\mathbb{R}^2$ have $d_{VC} = \infty$
+
+## The VC Bound
+
+The VC generalization bound states that for any $\epsilon > 0$  $$E_{gen}(g) \leq E_{train}(g) + \sqrt{\frac{8}{N}\ln{\frac{4m_{\mathcal{H}}(2N)}{\epsilon}}}$$ with probability $1 - \epsilon$
+
+## What does this tell us?
+
+1. Since $m_{\mathcal{H}}(N)$ is bounded by a polynomial of degree $d_{VC}$ in $N$, the RHS of $$E_{gen}(g) \leq E_{train}(g) + \sqrt{\frac{8}{N}\ln{\frac{4m_{\mathcal{H}}(2N)}{\epsilon}}}$$ $\rightarrow E_{train}(g)$ as the size of the training set increases
+2. Since $m_{\mathcal{H}}(N)$ or $d_{VC}$ is a measure of model complexity, more complicated models make the bound worse (overfitting!!!!)
+
+## Examples
+
+Suppose we want $E_{gen}(g)$ to be within 10% of $E_{train}(g)$ with 90% confidence for a model with $d_{VC} = 3$. How much data do we need?
+
+* From the VC Bound $$\sqrt{\frac{8}{N}\ln{ \frac{4m_{\mathcal{H}}(2N)}{0.9}}} \leq 0.1$$
+
+* So $$N \geq \frac{8}{0.1^2} \ln \left( \frac{4(2N)^3 + 4}{0.1}\right)$$
+
+* $N \sim 30,000$
+
+* It turns out that $N \sim 10,000 \times d_{VC}$
+
+* Empirically, $N \sim 10 \times d_{VC}$ (VC bound badly overestimates)
+
+## Sketch of Proof
+
+
+
+## References
+
+* Yaser S. Abu-Mostafa, Malik Magdon-Ismail, Hsuan-Tien Lin *Learning From Data: A Short Course*
+* *http://www.svms.org/vc-dimension/*
