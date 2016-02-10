@@ -104,7 +104,7 @@ What are $\phi$ and the dimension of $V$ in this case?
 * Pick the right kernel for what you think the decision boundary might look like
 * Questions?
 
-## VC Dimension and the VC Bound Theorem
+## VC Dimension and the VC Generalization Bound
 
 **Question:**
 Why should you expect that your training error tells you anything about the error of your model on new data? In other words, why/how do you know that your model will generalize at all?
