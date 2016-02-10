@@ -164,11 +164,11 @@ However, the event $$|E_{train}(g) - E_{gen}(g)| > \epsilon$$ is in the union of
 ## Shattering
 
 * $m_{\mathcal{H}}(N) \leq 2^N$
-* We say $\mathcal{H}$ *shatters* $x_1, \ldots, x_N$ if $| \{h(x_1), \ldots, h(x_N) | h \in \mathcal{H}\}| = 2^N$
+* $\mathcal{H}$ *shatters* $x_1, \ldots, x_N$ if $| \{h(x_1), \ldots, h(x_N) | h \in \mathcal{H}\}| = 2^N$
 * In this case $m_{\mathcal{H}}(N) = 2^N$
 
 ## Examples
-* Linear decision boundaries shatters 3 points in $\mathbb{R}^2$
+* Linear decision boundaries shatter 3 points in $\mathbb{R}^2$
 ![Shattering Example](../images/VCDimension.png){width=200px}
 * Convex polgons in $\mathbb{R}^2$ shatter arbitrarily many points
     * Choose $N$ points on the unit circle
@@ -197,11 +197,11 @@ However, the event $$|E_{train}(g) - E_{gen}(g)| > \epsilon$$ is in the union of
 
 ## The VC Bound
 
-The VC generalization bound states that for any $\epsilon > 0$  $$E_{gen}(g) \leq E_{train}(g) + \sqrt{\frac{8}{N}\ln{\frac{4m_{\mathcal{H}}(2N)}{\epsilon}}}$$ with probability $1 - \epsilon$
+The VC generalization bound states that for any $\delta > 0$  $$E_{gen}(g) \leq E_{train}(g) + \sqrt{\frac{8}{N}\ln{\frac{4m_{\mathcal{H}}(2N)}{\delta}}}$$ with probability $1 - \delta$
 
 ## What does this tell us?
 
-1. Since $m_{\mathcal{H}}(N)$ is bounded by a polynomial of degree $d_{VC}$ in $N$, the RHS of $$E_{gen}(g) \leq E_{train}(g) + \sqrt{\frac{8}{N}\ln{\frac{4m_{\mathcal{H}}(2N)}{\epsilon}}}$$ $\rightarrow E_{train}(g)$ as the size of the training set increases
+1. Since $m_{\mathcal{H}}(N)$ is bounded by a polynomial of degree $d_{VC}$ in $N$, the RHS of $$E_{gen}(g) \leq E_{train}(g) + \sqrt{\frac{8}{N}\ln{\frac{4m_{\mathcal{H}}(2N)}{\delta}}}$$ $\rightarrow E_{train}(g)$ as the size of the training set increases
 2. Since $m_{\mathcal{H}}(N)$ or $d_{VC}$ is a measure of model complexity, more complicated models make the bound worse (overfitting!!!!)
 
 ## Examples
@@ -220,7 +220,17 @@ Suppose we want $E_{gen}(g)$ to be within 10% of $E_{train}(g)$ with 90% confide
 
 ## Sketch of Proof
 
+1. Instead of working with the space of all possible observations, pick a second test set the same size as the training set
+$$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{gen}(h)| > \epsilon/2\right) \leq $$
+$$2\mathbb{P}\left(\sup_h |E_{train}(h) - E_{test}(h)| > \epsilon/2\right)$$
 
+2. Replace the infinite hypothesis set with the number of dichotomies that the hypothesis set can have on a finite set $S$ of points giving
+$$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{test}(h)| > \epsilon/2\right) \leq$$
+$$m_{\mathcal{H}}(2N) \times \sup_{S} \sup_{h} \mathbb{P}\left(|E_{train}(h) - E_{test}(h)| > \epsilon/2 | S \right)$$
+
+## Sketch Part 2
+
+3. Use the Hoeffding bound to show $$\mathbb{P}\left(|E_{train}(h) - E_{test}(h)| > \epsilon/2 | S \right) \leq 2e^{-\frac{1}{8}\epsilon^2N}$$
 
 ## References
 
