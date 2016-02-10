@@ -7,6 +7,7 @@
 * PhD from University of Utah in 2014 (Geometric Group Theory)
 * Worked for [Amazon Web Services](http://aws.amazon.com) doing supply chain optimization and forecasting
 * brian.mann@galvanize.com
+* Github: brianmanngalvanize
 
 ## Objectives
 
@@ -56,6 +57,8 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 
 1. $K(x,y) = K(y,x)$ (symmetric)
 2. $K$ is positive-semidefinite i.e. $$\sum_i \sum_j K(x_i, x_j)c_ic_j > 0$$ for all finite sequences $x_1,\ldots, x_n$ and all $c_i, c_j \in \mathbb{R}$
+
+These definitions are a little opaque, but the idea is that a kernel function generalizes the idea of an inner product (also known as a linear kernel).
 
 ## Mercer's Theorem
 
@@ -128,7 +131,7 @@ Suppose $X_1, \ldots, X_n$ are iid random variables and let $$\bar{X} = \frac{X_
 
 * Suppose $h$ is some hypothesis (a function that classifies observations as either $+1$ or $-1$)
 * $E_{train}(h) =$ error rate on your training set
-* $E_{gen}(h) = h$'s true error rate
+* $E_{gen}(h) =$ true error rate of $h$
 
 $E_{gen}(h)$ and $E_{train}(h)$ are random variables that satisfy the hypotheses of the Hoeffding Inequality so $$\mathbb{P}(|E_{train}(h) - E_{gen}(h)| > \epsilon) \leq 2e^{-2\epsilon^2N}$$
 
@@ -223,17 +226,27 @@ Suppose we want $E_{gen}(g)$ to be within 10% of $E_{train}(g)$ with 90% confide
 
 * Empirically, $N \sim 10 \times d_{VC}$ (VC bound badly overestimates)
 
-## Sketch of Proof
+## Conclusion
+
+* The VC Generalization Bound is the theorem that tells you machine learning actually works!
+* Obtain statistical guarantees about how well your model generalizes
+* Extremely slack bound, but better than nothing
+
+## Sketch of Proof (optional)
+
+*Theorem (VC Generalization Bound)* $$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{gen}(h)| > \epsilon\right) \leq 4m_{\mathcal{H}}(2N)e^{-\frac{1}{8}\epsilon^2N}$$
 
 1. Instead of working with the space of all possible observations, pick a second test set the same size as the training set
 $$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{gen}(h)| > \epsilon/2\right) \leq $$
 $$2\mathbb{P}\left(\sup_h |E_{train}(h) - E_{test}(h)| > \epsilon/2\right)$$
 
+## Sketch Part 2
+
 2. Replace the infinite hypothesis set with the number of dichotomies that the hypothesis set can have on a finite set $S$ of points giving
 $$\mathbb{P}\left(\sup_h |E_{train}(h) - E_{test}(h)| > \epsilon/2\right) \leq$$
 $$m_{\mathcal{H}}(2N) \times \sup_{S} \sup_{h} \mathbb{P}\left(|E_{train}(h) - E_{test}(h)| > \epsilon/2 | S \right)$$
 
-## Sketch Part 2
+## Sketch Part 3
 
 3. Use the Hoeffding bound to show $$\mathbb{P}\left(|E_{train}(h) - E_{test}(h)| > \epsilon/2 | S \right) \leq 2e^{-\frac{1}{8}\epsilon^2N}$$
 
