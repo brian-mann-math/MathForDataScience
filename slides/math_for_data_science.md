@@ -104,7 +104,7 @@ What are $\phi$ and the dimension of $V$ in this case?
 
 ## We need to start somewhere
 
-### Theorem (Hoeffding Inequality)
+**Theorem (Hoeffding Inequality)**
 
 Suppose $X_1, \ldots, X_n$ are iid random variables and let $$\bar{X} = \frac{X_1 + X_2 + \cdots + X_N}{N}$$ then $$\mathbb{P}(|\bar{X} - \mathbb{E}(\bar{X})| > \epsilon) \leq 2e^{-2\epsilon^2N}$$
 
@@ -235,4 +235,5 @@ $$m_{\mathcal{H}}(2N) \times \sup_{S} \sup_{h} \mathbb{P}\left(|E_{train}(h) - E
 ## References
 
 * Yaser S. Abu-Mostafa, Malik Magdon-Ismail, Hsuan-Tien Lin *Learning From Data: A Short Course*
-* *http://www.svms.org/vc-dimension/*
+* Eduardo Sontag, *VC Dimension of Neural Networks*, http://www.mit.edu/~esontag/FTP_DIR/vc-expo.pdf
+* Images: *http://www.svms.org/vc-dimension/*
