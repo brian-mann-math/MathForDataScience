@@ -6,9 +6,12 @@
 
 * PhD from University of Utah in 2014 (Geometric Group Theory)
 * Worked for [Amazon Web Services](http://aws.amazon.com) doing supply chain optimization and forecasting
-* Now at [Galvanize](http://www.galvanize.com) teaching data science and consulting
-* [Slides](https://github.com/brianmanngalvanize/MathForDataScience/blob/master/slides/math_for_data_science.pdf)
 * brian.mann@galvanize.com
+
+## Objectives
+
+* Learn some fun mathematics
+* See how understanding how machine learning is working "under the hood" can improve your intuition about model selection and hyper-parameter choice
 
 ## Support Vector Machines (SVM)
 
@@ -19,7 +22,7 @@
 
 ## Ok, that sounds great. What's the problem?
 
-![ Well, shit.](../images/2d.png){ width=250px }
+![ Oh. ](../images/2d.png){ width=250px }
 
 ## The solution
 
@@ -29,14 +32,14 @@
 
 ## Talk's over, right?
 
-* Not quite, there's still some problems
+Not quite, there's still some problems
 
 ## Issue 1: Memory
 
 * Even for polynomial transformations, the numbers of dimensions (features) in the target space can grow very quickly
 * Consider the transformation $\phi: \mathbb{R}^2 \rightarrow \mathbb{R}^5$ given by $$(x_1, x_2) \mapsto (x_1^2, x_1x_2, x_2^2, x_1, x_2, 1)$$
 * More generally, a mapping $\phi_d: \mathbb{R}^N \rightarrow \mathbb{R}^{N+d \choose d}$ that maps a vector to the vector of all monomial terms in $N$ variables of degree $\leq d$
-* $N+d \choose d$ grows *very* quickly as $d >> 0$
+* $N+d \choose d$ grows *very* quickly as $N, d >> 0$
 
 ## Issue 2: Computation
 
@@ -49,12 +52,6 @@
 * There is!
 * This is what *kernel functions* do for us
 
-
-## Kernels
-
-* Make $\phi$ implicit
-* This implicit $\phi$ might have an infinite dimensional target vector space
-
 ## What is a kernel function?
 
 A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}$$ which satisfies
@@ -66,14 +63,15 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 
 *Mercer's Theorem* says that if $K : \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}$ is a kernel function, then there exists a vector space with an inner product (a *Hilbert space*) $V$ and a mapping $\phi: \mathbb{R}^N \rightarrow V$ so that $$K(x,y) = \langle \phi(x), \phi(y) \rangle$$
 
-* In English, if $K$ is a kernel function, it consists of a transformation followed by an inner product in some higher dimensional space $V$.
+* In English, if $K$ is a kernel function, it consists of a transformation followed by an inner product in some higher dimensional space, $V$.
 
-* Kernels allow us to compute high-dimensional inner products in $V$ in terms of our original inputs in $\mathbb{R}^N$.
+* Kernels allow us to compute high-dimensional (sometimes infinite!) inner products in $V$ in terms of our original inputs in $\mathbb{R}^N$.
 
 ## Example: Polynomial kernel
 
 * $K(x,y) = (\langle x, y \rangle + c)^d$
 * $c$ and $d$ are chosen *a priori* by the user, not trained
+* Choose best $c$ and $d$ by cross-validation
 * Comes from the polynomial transformation $\phi_d$ (ignoring some constants)
 
 ![Polynomial Kernel](../images/svm_kernel_poly.png){ width=200px }
@@ -82,6 +80,10 @@ A *kernel function* is a continuous function $$K: \mathbb{R}^N \times \mathbb{R}
 
 * $K(x,y) = e^{-\gamma||x - y||^2}$
 * $\gamma$ is chosen *a priori* by the user
+* Largest when $x$ and $y$ are close, decays exponentially
+* With the RBF kernel, SVM looks for clusters of similarly labeled points
+* Can learn much more complicated decision boundaries compared to polynomial or linear kernels (watch for overfitting, adjust $\gamma$)
+
 
 ## More RBF kernel
 What are $\phi$ and the dimension of $V$ in this case?
@@ -94,13 +96,14 @@ What are $\phi$ and the dimension of $V$ in this case?
 
 ![RBF Kernel](../images/svm_kernel_rbf.png){ width=200px }
 
-## Questions?
+## Overview
+
+* The kernel trick...
 
 ## VC Dimension and the VC Bound Theorem
 
-### Question?
-
-* Why should you expect that your training error tells you anything about the error of your model on new data? In other words, why/how do you know that your model will generalize at all?
+**Question:**
+Why should you expect that your training error tells you anything about the error of your model on new data? In other words, why/how do you know that your model will generalize at all?
 
 ## We need to start somewhere
 
@@ -148,16 +151,15 @@ However, the event $$|E_{train}(g) - E_{gen}(g)| > \epsilon$$ is in the union of
 
 ## Can we do better?
 
-* How do we make this idea work?
-    * Even with finitely many hypothesis functions the bound is still quite bad since the events $$|E_{train}(h_i) - E_{gen}(h_i)| > \epsilon$$ probably have large overlaps
-    * In fact, they overlap enough to allow us to work with infinite hypothesis sets (i.e. hyperplanes in $\mathbb{R}^N$)
+* Even with finitely many hypothesis functions the bound is still quite bad since the events $$|E_{train}(h_i) - E_{gen}(h_i)| > \epsilon$$ probably have large overlaps
+* In fact, they overlap enough to allow us to work with infinite hypothesis sets (i.e. hyperplanes in $\mathbb{R}^N$)
 
 ## Shattering
 
 * Let $\mathcal{H}$ be our hypotheses set
     * $\mathcal{H}$ might be all separating hyperplanes in $\mathbb{R}^N$
     * or the set of all of the possible decision functions you can get with a neural network of some fixed topology
-
+* A *dichotomy* is a choice of label $+1$ or $-1$ for each point in a data set
 * For any finite data set $\{x_1, \ldots, x_N\}$, each $h \in \mathcal{H}$ gives a dichotomy $h(x_1), \ldots, h(x_N) \in \{+1, -1\}^N$
 * Define $$m_{\mathcal{H}(N)} = \max_{x_1, \ldots, x_N} | \{h(x_1), \ldots, h(x_N) | h \in \mathcal{H}\}|$$
 
@@ -166,6 +168,7 @@ However, the event $$|E_{train}(g) - E_{gen}(g)| > \epsilon$$ is in the union of
 * $m_{\mathcal{H}}(N) \leq 2^N$
 * $\mathcal{H}$ *shatters* $x_1, \ldots, x_N$ if $| \{h(x_1), \ldots, h(x_N) | h \in \mathcal{H}\}| = 2^N$
 * In this case $m_{\mathcal{H}}(N) = 2^N$
+* In other words, $\mathcal{H}$ shatters a set of points if it could obtain zero training error on that set
 
 ## Examples
 * Linear decision boundaries shatter 3 points in $\mathbb{R}^2$
@@ -183,6 +186,7 @@ However, the event $$|E_{train}(g) - E_{gen}(g)| > \epsilon$$ is in the union of
 * The VC Dimension $d_{VC}$ of $\mathcal{H}$ is defined to be the largest $N$ for which $m_{\mathcal{H}}(N) = 2^N$
 * Said another way $$d_{VC} \geq N$$ $$\Leftrightarrow$$ $$\text{ there exists a data set of size $N$ such that } \mathcal{H} \text{ shatters it}$$
 * The VC Dimension gives a polynomial upper bound on $m_{\mathcal{H}}(N)$ $$m_{\mathcal{H}(N)} \leq N^{d_{VC}} + 1$$
+* VC Dimension is a measure of complexity of a hypothesis
 
 ## Examples
 
@@ -208,7 +212,7 @@ The VC generalization bound states that for any $\delta > 0$  $$E_{gen}(g) \leq 
 
 Suppose we want $E_{gen}(g)$ to be within 10% of $E_{train}(g)$ with 90% confidence for a model with $d_{VC} = 3$. How much data do we need?
 
-* From the VC Bound $$\sqrt{\frac{8}{N}\ln{ \frac{4m_{\mathcal{H}}(2N)}{0.9}}} \leq 0.1$$
+* From the VC Bound $$\sqrt{\frac{8}{N}\ln{ \frac{4m_{\mathcal{H}}(2N)}{0.1}}} \leq 0.1$$
 
 * So $$N \geq \frac{8}{0.1^2} \ln \left( \frac{4(2N)^3 + 4}{0.1}\right)$$
 
@@ -231,6 +235,8 @@ $$m_{\mathcal{H}}(2N) \times \sup_{S} \sup_{h} \mathbb{P}\left(|E_{train}(h) - E
 ## Sketch Part 2
 
 3. Use the Hoeffding bound to show $$\mathbb{P}\left(|E_{train}(h) - E_{test}(h)| > \epsilon/2 | S \right) \leq 2e^{-\frac{1}{8}\epsilon^2N}$$
+
+## Conclusion
 
 ## References
 
