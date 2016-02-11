@@ -6,6 +6,7 @@
 
 * PhD from University of Utah in 2014 (Geometric Group Theory)
 * Worked for [Amazon Web Services](http://aws.amazon.com) doing supply chain optimization and forecasting
+* Now a Data Scientist at [Galvanize](http://www.galvanize.com)
 * Email: brian.mann@galvanize.com
 * Github: brianmanngalvanize
 
