@@ -1,11 +1,11 @@
 # Build lecture slides for time series
 
 # Commands
-PANDOC = pandoc -t beamer --template=../config/default.beamer
+PANDOC = pandoc --latex-engine=pdflatex
 RM = rm -f
 
 # Files
-TGT = linear_algebra_day_1.pdf
+TGT = exercises.pdf
 
 # Rules
 default: $(TGT)
